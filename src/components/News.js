@@ -89,13 +89,23 @@ export default class News extends Component{
         }
 
     }
+
+   async componentDidMount(){
+             let url ="https://newsapi.org/v2/top-headlines?country=us&apiKey=d265b71446e24a498e57f7d208f3deb7";
+             let data = await  fetch(url);
+             let parsedData = await  data.json();
+        
+             this.setState({articles:parsedData.articles});
+           
+
+    }
+
     render(){
         return (
             <div className='container my-3'>
                <h1>Kathmandu - Top Headlines</h1>
                  <div className="row">
                     {this.state.articles.map((element)=>{
-
                          return(
                        <div className="col-md-4">
                          <Newsitem   title={element.title} description={element.description} imgurl={element.urlToImage}  newsurl={element.url}  key={element.url}></Newsitem>
